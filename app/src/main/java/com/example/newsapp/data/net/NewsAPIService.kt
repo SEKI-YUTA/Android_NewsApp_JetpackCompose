@@ -14,7 +14,8 @@ interface NewsAPIService {
         @Query("country") country: String,
         @Query("sortBy") sortBy: String = "published",
         @Query("apiKey") apiKey: String
-    ): Response<NewsResponse_API>
+    ): NewsResponse_API
+//    ): Response<NewsResponse_API>
 
 
 }
