@@ -2,6 +2,7 @@ package com.example.newsapp.data.net
 
 import com.example.newsapp.data.model.NewsResponse_API
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -12,6 +13,8 @@ interface NewsAPIService {
     suspend fun getTopNews(
         @Query("country") country: String,
         @Query("sortBy") sortBy: String = "published",
-        @Query("published") apiKey: String
-    ): NewsResponse_API
+        @Query("apiKey") apiKey: String
+    ): Response<NewsResponse_API>
+
+
 }

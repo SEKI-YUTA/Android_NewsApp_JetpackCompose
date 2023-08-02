@@ -20,9 +20,17 @@ class NewsScreenViewModel: ViewModel() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 val topNews = NewsAPI.apiService.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY)
-//                val response = topNews.
-                if(topNews.status == "200") {
-                    println("connection succeed")
+//                if(response.code() == 200) {
+//                    println("connection succeed")
+//                }
+                if(topNews.isSuccessful)  {
+                println("connection succeed")
+                    topNews.body().let {
+                        println(it.toString())
+                        println("article count: ${it?.articles?.size}")
+                    }
+                } else {
+                    println("connection failed")
                 }
             }
         }

@@ -5,11 +5,12 @@ import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFact
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType
 import retrofit2.Retrofit
-
+import retrofit2.converter.gson.GsonConverterFactory
 
 val retrofit: Retrofit =
     Retrofit.Builder()
-        .addConverterFactory(Json.asConverterFactory(MediaType.get("application/json")))
+//        .addConverterFactory(Json.asConverterFactory(MediaType.get("application/json")))
+        .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(ConstantValues.BASE_URL)
         .build()
 
