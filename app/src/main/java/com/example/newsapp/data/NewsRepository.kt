@@ -9,4 +9,10 @@ interface NewsRepository {
         sortBy: String = "published",
         apiKey: String
     ): NewsResponse
+    suspend fun getTopNewsByCategory(
+        country: String,
+        category: String,
+        sortBy: String = "published",
+        apiKey: String
+    ): NewsResponse
 }

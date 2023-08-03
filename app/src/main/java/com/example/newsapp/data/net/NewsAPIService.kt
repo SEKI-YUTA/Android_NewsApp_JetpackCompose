@@ -18,5 +18,13 @@ interface NewsAPIService {
     ): NewsResponse_API
 //    ): Response<NewsResponse_API>
 
+    @GET("top-headlines")
+    suspend fun getTopNewsByCategory(
+        @Query("country") country: String,
+        @Query("category") category: String,
+        @Query("sortBy") sortBy: String = "published",
+        @Query("apiKey") apiKey: String
+    ): NewsResponse_API
+
 
 }

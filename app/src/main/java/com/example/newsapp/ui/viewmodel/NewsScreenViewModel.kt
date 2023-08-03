@@ -9,6 +9,7 @@ import com.example.newsapp.data.NewsRepository
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
 import com.example.newsapp.data.net.NewsAPI
+import com.example.newsapp.ui.model.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,13 +21,19 @@ class NewsScreenViewModel(
     private val newsRepository: NewsRepository
 ): ViewModel() {
     val tabsMap = mapOf<String, String>(
-        "トップ" to "headline",
-        "芸能" to "entertainment",
+        "トップ" to "",
         "ビジネス" to "business",
+        "芸能" to "entertainment",
+        "健康" to "health",
+        "科学" to "science",
+        "スポーツ" to "sports",
+        "テクノロジー" to "technology"
     )
 
+    private val _currentNewsResponse = MutableStateFlow<NewsResponse?>(null)
+    val currentNewsResponse = _currentNewsResponse.asStateFlow()
 
-    fun getNews(){
+    fun getNews(category: String = ""){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
 //                val topNews = NewsAPI.apiService.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY)
@@ -34,9 +41,21 @@ class NewsScreenViewModel(
 //                    println("connection succeed status: ${it.status}")
 //                    println("count: ${it.totalResults}")
 //                }
-                newsRepository.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY).let {
-                    println("connection succeed status: ${it.status}")
-                    println("count: ${it.totalResults}")
+                if(category == "") {
+                    // カテゴリ指定なしでニュースを取得する場合
+                    newsRepository.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY).let {
+                        println("connection succeed status: ${it.status}")
+                        println("count: ${it.totalResults}")
+                        println(it.articles[0].title)
+                        _currentNewsResponse.value = it
+                    }
+                } else {
+                    // カテゴリを指定してニュースを取得する場合
+                    newsRepository.getTopNewsByCategory("jp", category, apiKey = SecretInfo.NEWS_API_KEY).let {
+                        println("connection succeed status: ${it.status}")
+                        println("count: ${it.totalResults}")
+                        _currentNewsResponse.value = it
+                    }
                 }
             }
         }
