@@ -75,7 +75,11 @@ dependencies {
     // toMediaTypeをつかうために必要
     implementation "com.squareup.okhttp3:okhttp:4.10.0"
 
+    // HorizontalPagerとかを使うために必要
     implementation "androidx.compose.foundation:foundation:1.4.3"
+
+    // ネットの画像を表示させるために必要
+    implementation "io.coil-kt:coil-compose:2.4.0"
 
 
     testImplementation 'junit:junit:4.13.2'
