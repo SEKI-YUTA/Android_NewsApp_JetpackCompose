@@ -17,11 +17,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.ui.screens.NewsListScreen
 import com.example.newsapp.ui.screens.SettingScreen
+import com.example.newsapp.ui.viewmodel.MainScreenViewModel
+import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 // ここでナビゲーションを行う
 @Composable
@@ -48,8 +51,7 @@ fun MainScreen() {
     ) {
         Box(modifier = Modifier
             .fillMaxSize()
-            .padding(it)
-            .padding(16.dp)) {
+            .padding(it)) {
             NavHost(navController = navController, startDestination = Screen.NewsScreen.name) {
                 // ここで画面遷移を行う
                 composable(Screen.NewsScreen.name) {

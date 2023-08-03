@@ -72,8 +72,10 @@ dependencies {
 //    implementation "androidx.core:core-ktx:1.11.0-beta02"
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
-
+    // toMediaTypeをつかうために必要
     implementation "com.squareup.okhttp3:okhttp:4.10.0"
+
+    implementation "androidx.compose.foundation:foundation:1.4.3"
 
 
     testImplementation 'junit:junit:4.13.2'
