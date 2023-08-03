@@ -12,8 +12,6 @@ val mediaType = "application/json".toMediaType()
 val retrofit: Retrofit =
     Retrofit.Builder()
         .addConverterFactory(Json{coerceInputValues = true}.asConverterFactory(mediaType))
-//        .addConverterFactory(Json.asConverterFactory(MediaType.parse("application/json")!!))
-//        .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(ConstantValues.BASE_URL)
         .build()
 
