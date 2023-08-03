@@ -1,8 +1,8 @@
 package com.example.newsapp.data.model
 
 import androidx.annotation.Keep
+import com.example.newsapp.ui.model.Article
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 
 @Keep
 @Serializable
@@ -15,4 +15,17 @@ data class Article_API(
     val title: String?,
     val url: String?,
     val urlToImage: String?
-)
+) {
+    fun toUIModel(): Article {
+        return Article(
+            author = author,
+            content = content,
+            description = description,
+            publishedAt = publishedAt,
+            source = source?.toUIModel(),
+            title = title,
+            url = url,
+            urlToImage = urlToImage
+        )
+    }
+}

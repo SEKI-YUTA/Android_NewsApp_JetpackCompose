@@ -1,6 +1,7 @@
 package com.example.newsapp.data.model
 
 import androidx.annotation.Keep
+import com.example.newsapp.ui.model.NewsResponse
 import kotlinx.serialization.Serializable
 
 @Keep
@@ -9,4 +10,12 @@ data class NewsResponse_API(
     val articles: List<Article_API>,
     val status: String,
     val totalResults: Int
-)
+) {
+    fun toUIModel(): NewsResponse {
+        return NewsResponse(
+            articles = articles.map { it.toUIModel() },
+            status = status,
+            totalResults = totalResults
+        )
+    }
+}
