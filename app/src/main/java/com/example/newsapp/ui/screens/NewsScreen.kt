@@ -2,6 +2,8 @@
 
 package com.example.newsapp.ui.screens
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -28,6 +30,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -77,9 +80,15 @@ fun NewsListScreen() {
 
 @Composable
 fun NewsListItem(article: Article, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
     ListItem(
         modifier = modifier.clickable {
-            // 詳細ページへ遷移する処理
+            // 詳細ページへ遷移する処理にする予定
+          // 今はステートをどうやって保存しておくかが未定なので直接ブラウザでページを開く
+            article.url?.let {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                context.startActivity(intent)
+            }
         },
         leadingContent = {
             if(article.urlToImage == null) {
