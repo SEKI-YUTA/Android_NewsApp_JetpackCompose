@@ -34,6 +34,7 @@ class NewsScreenViewModel(
     val currentNewsResponse = _currentNewsResponse.asStateFlow()
 
     fun getNews(category: String = ""){
+        _currentNewsResponse.value = null
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
 //                val topNews = NewsAPI.apiService.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY)
