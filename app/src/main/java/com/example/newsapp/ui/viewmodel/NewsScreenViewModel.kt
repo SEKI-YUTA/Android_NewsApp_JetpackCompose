@@ -8,7 +8,6 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.newsapp.data.NewsRepository
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
-import com.example.newsapp.data.net.NewsAPI
 import com.example.newsapp.ui.model.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,10 +29,22 @@ class NewsScreenViewModel(
         "テクノロジー" to "technology"
     )
 
+    val _responseMap = MutableStateFlow(mapOf<String, NewsResponse?>(
+        "トップ" to null,
+        "ビジネス" to null,
+        "芸能" to null,
+        "健康" to null,
+        "科学" to null,
+        "スポーツ" to null,
+        "テクノロジー" to null
+    ))
+    val responseMap = _responseMap.asStateFlow()
+
     private val _currentNewsResponse = MutableStateFlow<NewsResponse?>(null)
     val currentNewsResponse = _currentNewsResponse.asStateFlow()
 
     fun getNews(category: String = ""){
+        println("getNews called")
         _currentNewsResponse.value = null
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -59,6 +70,20 @@ class NewsScreenViewModel(
                     }
                 }
             }
+        }
+    }
+
+    fun checkResponse(key: String): Boolean{
+        return _responseMap.value[key] != null
+    }
+
+    fun setCurrentResponse(key: String) {
+        _currentNewsResponse.value = _responseMap.value[key]
+    }
+
+    fun addResponse(key: String, response: NewsResponse?){
+        _responseMap.update {
+            it.plus(key to response)
         }
     }
 

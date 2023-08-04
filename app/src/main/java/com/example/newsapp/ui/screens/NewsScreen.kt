@@ -18,13 +18,11 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.PageSize
 import androidx.compose.foundation.pager.rememberPagerState
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
@@ -51,13 +49,15 @@ fun NewsListScreen() {
     val tagContentState = rememberPagerState(initialPage = 0)
     val categoryName = entries.elementAt(tagContentState.currentPage).key
     val categoryPrefix = entries.elementAt(tagContentState.currentPage).value
+    LaunchedEffect(tagContentState.currentPage) {
+        viewModel.getNews(categoryPrefix)
+    }
     Box(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
             pageSize = PageSize.Fill,
             pageCount = viewModel.tabsMap.size, state = tagContentState
         ) { idx ->
             println("idx: $idx")
-            viewModel.getNews(categoryPrefix)
             Box(modifier = Modifier.fillMaxSize()) {
                 Column {
                     Text("$categoryName",modifier = Modifier
