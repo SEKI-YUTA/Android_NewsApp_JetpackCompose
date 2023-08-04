@@ -35,15 +35,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.newsapp.R
+import com.example.newsapp.ui.Screen
 import com.example.newsapp.ui.model.Article
+import com.example.newsapp.ui.viewmodel.MainScreenViewModel
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun NewsListScreen() {
-    val viewModel = viewModel<NewsScreenViewModel>(factory = NewsScreenViewModel.Factory)
+fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewModel) {
     val entries = viewModel.tabsMap.entries
     val currentNewsResponse = viewModel.currentNewsResponse.collectAsState()
     val tagContentState = rememberPagerState(initialPage = 0)
@@ -75,7 +77,10 @@ fun NewsListScreen() {
                     } else {
                         LazyColumn(modifier = Modifier.fillMaxSize()) {
                             items(currentNewsResponse.value?.articles ?: listOf()) { article ->
-                                NewsListItem(article = article)
+                                NewsListItem(article = article, onTapAction = {
+                                    viewModel.setCurrentArticle(article)
+                                    navController.navigate(Screen.NewsDetailScreen.name)
+                                })
                             }
                         }
                     }
@@ -86,16 +91,16 @@ fun NewsListScreen() {
 }
 
 @Composable
-fun NewsListItem(article: Article, modifier: Modifier = Modifier) {
+fun NewsListItem(article: Article, modifier: Modifier = Modifier, onTapAction: () -> Unit) {
     val context = LocalContext.current
     ListItem(
         modifier = modifier.clickable {
             // 詳細ページへ遷移する処理にする予定
-          // 今はステートをどうやって保存しておくかが未定なので直接ブラウザでページを開く
-            article.url?.let {
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                context.startActivity(intent)
-            }
+              onTapAction()
+//            article.url?.let {
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+//                context.startActivity(intent)
+//            }
         },
         leadingContent = {
             if(article.urlToImage == null) {

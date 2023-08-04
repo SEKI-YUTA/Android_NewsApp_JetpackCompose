@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.newsapp.data.NewsRepository
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
+import com.example.newsapp.ui.model.Article
 import com.example.newsapp.ui.model.NewsResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -42,6 +43,9 @@ class NewsScreenViewModel(
 
     private val _currentNewsResponse = MutableStateFlow<NewsResponse?>(null)
     val currentNewsResponse = _currentNewsResponse.asStateFlow()
+
+    private val _currentArticle = MutableStateFlow<Article?>(null)
+    val currentArticle = _currentArticle.asStateFlow()
 
     fun getNews(categoryKey: String ,category: String = ""){
         println("getNews called")
@@ -87,6 +91,10 @@ class NewsScreenViewModel(
         _responseMap.update {
             it.plus(key to response)
         }
+    }
+
+    fun setCurrentArticle(article: Article) {
+        _currentArticle.value = article
     }
 
     companion object {
