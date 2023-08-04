@@ -50,7 +50,14 @@ fun NewsListScreen() {
     val categoryName = entries.elementAt(tagContentState.currentPage).key
     val categoryPrefix = entries.elementAt(tagContentState.currentPage).value
     LaunchedEffect(tagContentState.currentPage) {
-        viewModel.getNews(categoryPrefix)
+        if(viewModel.checkResponse(categoryName)) {
+            // 取得済みの場合
+            println("$categoryName 取得済み")
+            viewModel.setCurrentResponse(categoryName)
+        } else {
+            println("$categoryName 取得中")
+            viewModel.getNews(categoryName,categoryPrefix)
+        }
     }
     Box(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(

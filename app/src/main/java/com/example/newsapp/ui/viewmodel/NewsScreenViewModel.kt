@@ -43,7 +43,7 @@ class NewsScreenViewModel(
     private val _currentNewsResponse = MutableStateFlow<NewsResponse?>(null)
     val currentNewsResponse = _currentNewsResponse.asStateFlow()
 
-    fun getNews(category: String = ""){
+    fun getNews(categoryKey: String ,category: String = ""){
         println("getNews called")
         _currentNewsResponse.value = null
         viewModelScope.launch {
@@ -60,6 +60,7 @@ class NewsScreenViewModel(
                         println("count: ${it.totalResults}")
                         println(it.articles[0].title)
                         _currentNewsResponse.value = it
+                        addResponse(categoryKey, it)
                     }
                 } else {
                     // カテゴリを指定してニュースを取得する場合
@@ -67,6 +68,7 @@ class NewsScreenViewModel(
                         println("connection succeed status: ${it.status}")
                         println("count: ${it.totalResults}")
                         _currentNewsResponse.value = it
+                        addResponse(categoryKey, it)
                     }
                 }
             }
