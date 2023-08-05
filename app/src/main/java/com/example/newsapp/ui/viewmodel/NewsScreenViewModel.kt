@@ -30,6 +30,8 @@ class NewsScreenViewModel(
         "テクノロジー" to "technology"
     )
 
+    val searchResultMap = mutableMapOf<String, NewsResponse>()
+
     val _responseMap = MutableStateFlow(mapOf<String, NewsResponse?>(
         "トップ" to null,
         "ビジネス" to null,
@@ -54,6 +56,10 @@ class NewsScreenViewModel(
     val isSearching = _isSearching.asStateFlow()
 
     fun searchNews(query: String){
+        if(searchResultMap[query] != null) {
+            _currentSearchResult.value = searchResultMap[query]
+            return
+        }
         _currentSearchResult.value = null
         _isSearching.value = true
         viewModelScope.launch {
@@ -63,6 +69,7 @@ class NewsScreenViewModel(
                     println("count: ${it.totalResults}")
                     _currentSearchResult.value = it
                     _isSearching.value = false
+                    searchResultMap[query] = it
                 }
             }
         }
