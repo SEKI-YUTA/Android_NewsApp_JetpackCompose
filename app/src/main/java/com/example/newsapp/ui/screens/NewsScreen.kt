@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.newsapp.component.ArticleList
+import com.example.newsapp.component.ErrorMessage
 import com.example.newsapp.component.LoadingPlaceholder
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
@@ -72,6 +73,9 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
                 }
             }
         }
+    }
+    if(currentNewsResponse.value?.succeed == false) {
+        ErrorMessage(reloadAction = {println("reloadAction")})
     }
 }
 

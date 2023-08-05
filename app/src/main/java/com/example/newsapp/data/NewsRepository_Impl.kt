@@ -3,11 +3,21 @@ package com.example.newsapp.data
 import com.example.newsapp.data.model.NewsResponse_API
 import com.example.newsapp.data.net.NewsAPI
 import com.example.newsapp.ui.model.NewsResponse
+import retrofit2.HttpException
 
 class NewsRepository_Impl: NewsRepository {
     override suspend fun getTopNews(country: String, sortBy: String, apiKey: String): NewsResponse {
-        NewsAPI.apiService.getTopNews(country, sortBy, apiKey).let {
-            return it.toUIModel()
+        try {
+            NewsAPI.apiService.getTopNews(country, sortBy, apiKey).let {
+                return it.toUIModel()
+            }
+        } catch (e: HttpException) {
+            return NewsResponse(
+                succeed = false,
+                articles = listOf(),
+                status = e.message(),
+                totalResults = 0
+            )
         }
     }
 
@@ -17,8 +27,17 @@ class NewsRepository_Impl: NewsRepository {
         apiKey: String,
         query: String
     ): NewsResponse {
-        NewsAPI.apiService.getTopNewsByQuery(country, sortBy, apiKey, query).let {
-            return it.toUIModel()
+        try {
+            NewsAPI.apiService.getTopNewsByQuery(country, sortBy, apiKey, query).let {
+                return it.toUIModel()
+            }
+        } catch(e: HttpException) {
+            return NewsResponse(
+                succeed = false,
+                articles = listOf(),
+                status = e.message(),
+                totalResults = 0
+            )
         }
     }
 
@@ -28,8 +47,17 @@ class NewsRepository_Impl: NewsRepository {
         sortBy: String,
         apiKey: String
     ): NewsResponse {
-        NewsAPI.apiService.getTopNewsByCategory(country, category, sortBy, apiKey).let {
-            return it.toUIModel()
+        try {
+            NewsAPI.apiService.getTopNewsByCategory(country, category, sortBy, apiKey).let {
+                return it.toUIModel()
+            }
+        } catch(e: HttpException) {
+            return NewsResponse(
+                succeed = false,
+                articles = listOf(),
+                status = e.message(),
+                totalResults = 0
+            )
         }
     }
 }

@@ -90,7 +90,6 @@ class NewsScreenViewModel(
                     newsRepository.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY).let {
                         println("connection succeed status: ${it.status}")
                         println("count: ${it.totalResults}")
-                        println(it.articles[0].title)
                         _currentNewsResponse.value = it
                         addResponse(categoryKey, it)
                     }

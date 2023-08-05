@@ -13,6 +13,7 @@ data class NewsResponse_API(
 ) {
     fun toUIModel(): NewsResponse {
         return NewsResponse(
+            succeed = true,
             articles = articles.map { it.toUIModel() },
             status = status,
             totalResults = totalResults

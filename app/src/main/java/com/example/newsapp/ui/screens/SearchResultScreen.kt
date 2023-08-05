@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.newsapp.component.ArticleList
+import com.example.newsapp.component.ErrorMessage
 import com.example.newsapp.component.LoadingPlaceholder
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
@@ -45,6 +46,9 @@ fun SearchResultScreen(navController: NavHostController, viewModel: NewsScreenVi
                 }
             }
 
+        }
+        if(currentSearchResult.value?.succeed == false) {
+            ErrorMessage(showReloadButton = false)
         }
     }
 }
