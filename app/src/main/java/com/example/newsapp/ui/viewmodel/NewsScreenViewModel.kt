@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
+import com.example.newsapp.data.DemoRepository_Impl
 import com.example.newsapp.data.NewsRepository
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
@@ -128,7 +129,8 @@ class NewsScreenViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 NewsScreenViewModel(
-                    newsRepository = NewsRepository_Impl()
+//                    newsRepository = NewsRepository_Impl()
+                newsRepository = DemoRepository_Impl()
                 )
             }
         }

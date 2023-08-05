@@ -28,11 +28,11 @@ fun SearchResultScreen(navController: NavHostController, viewModel: NewsScreenVi
         Column(modifier = Modifier.fillMaxSize()) {
             Text(
                 "検索結果",
-                modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp),
+                modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp, top = 8.dp),
                 style = TextStyle(fontSize = 20.sp, textAlign = TextAlign.Center)
             )
             Text("該当数：${currentSearchResult.value?.totalResults}件",
-                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp),
+                modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp, end = 8.dp),
                 style = TextStyle(fontSize = 14.sp, textAlign = TextAlign.End))
             Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                 if(isSearching.value) {
