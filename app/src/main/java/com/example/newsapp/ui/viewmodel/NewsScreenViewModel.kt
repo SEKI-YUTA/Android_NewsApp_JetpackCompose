@@ -47,6 +47,27 @@ class NewsScreenViewModel(
     private val _currentArticle = MutableStateFlow<Article?>(null)
     val currentArticle = _currentArticle.asStateFlow()
 
+    private val _currentSearchResult = MutableStateFlow<NewsResponse?>(null)
+    val currentSearchResult = _currentSearchResult.asStateFlow()
+
+    private val _isSearching = MutableStateFlow(false)
+    val isSearching = _isSearching.asStateFlow()
+
+    fun searchNews(query: String){
+        _currentSearchResult.value = null
+        _isSearching.value = true
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                newsRepository.getTopNewsByQuery("jp", apiKey = SecretInfo.NEWS_API_KEY, query = query).let {
+                    println("connection succeed status: ${it.status}")
+                    println("count: ${it.totalResults}")
+                    _currentSearchResult.value = it
+                    _isSearching.value = false
+                }
+            }
+        }
+    }
+
     fun getNews(categoryKey: String ,category: String = ""){
         println("getNews called")
         _currentNewsResponse.value = null
