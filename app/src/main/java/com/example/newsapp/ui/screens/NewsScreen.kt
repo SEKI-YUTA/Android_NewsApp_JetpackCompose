@@ -32,10 +32,11 @@ import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewModel) {
     val entries = viewModel.tabsMap.entries
     val currentNewsResponse = viewModel.currentNewsResponse.collectAsState()
-    val tagContentState = rememberPagerState(initialPage = 0)
-    val categoryName = entries.elementAt(tagContentState.currentPage).key
-    val categoryPrefix = entries.elementAt(tagContentState.currentPage).value
-    LaunchedEffect(tagContentState.currentPage) {
+//    val tagContentState = rememberPagerState(initialPage = 0)
+    val tabContetState = rememberPagerState{entries.size}
+    val categoryName = entries.elementAt(tabContetState.currentPage).key
+    val categoryPrefix = entries.elementAt(tabContetState.currentPage).value
+    LaunchedEffect(tabContetState.currentPage) {
         if (viewModel.checkResponse(categoryName)) {
             // 取得済みの場合
             println("$categoryName 取得済み")
@@ -48,7 +49,8 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
     Box(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(
             pageSize = PageSize.Fill,
-            pageCount = viewModel.tabsMap.size, state = tagContentState
+//            pageCount = viewModel.tabsMap.size,
+            state = tabContetState
         ) { idx ->
             println("idx: $idx")
             Box(modifier = Modifier.fillMaxSize()) {
