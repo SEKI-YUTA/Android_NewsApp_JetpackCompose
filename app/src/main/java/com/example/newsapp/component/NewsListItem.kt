@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.newsapp.R
@@ -30,7 +31,7 @@ fun NewsListItem(article: Article, modifier: Modifier = Modifier, onTapAction: (
 //            }
         },
         leadingContent = {
-            if(article.urlToImage == null) {
+            if (article.urlToImage == null) {
                 Image(
                     modifier = Modifier.size(80.dp),
                     painter = painterResource(R.drawable.image_placeholder),
@@ -40,11 +41,17 @@ fun NewsListItem(article: Article, modifier: Modifier = Modifier, onTapAction: (
                 AsyncImage(
                     contentScale = ContentScale.Crop,
                     modifier = Modifier.size(80.dp),
-                    model = article.urlToImage, contentDescription = "")
+                    model = article.urlToImage, contentDescription = ""
+                )
             }
         },
         headlineText = {
-            Text(article.title!!, modifier = Modifier)
+            Text(
+                article.title!!,
+                modifier = Modifier,
+                maxLines = 2,
+                overflow = TextOverflow.Ellipsis
+            )
         },
         overlineText = {
         },
