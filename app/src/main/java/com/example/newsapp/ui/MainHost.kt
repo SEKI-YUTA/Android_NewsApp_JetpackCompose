@@ -30,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -62,7 +63,10 @@ fun MainHost(
                     title = {
                         //　タイトル
                         val isSearching = newsScreenViewModel.isSearching.collectAsState()
-                        var userInput by remember { mutableStateOf("")}
+                        val cursorBrush = if (isSystemInDarkTheme()) Brush.verticalGradient(
+                            listOf(Color.White, Color.White)
+                        ) else Brush.verticalGradient(listOf(Color.Black, Color.Black))
+                        var userInput by remember { mutableStateOf("") }
                         Row(
                             modifier = Modifier.padding(2.dp),
                             verticalAlignment = Alignment.CenterVertically
@@ -89,7 +93,8 @@ fun MainHost(
                                 onValueChange = {
                                     userInput = it
                                 },
-                                textStyle = TextStyle(color = if(isSystemInDarkTheme()) Color.White else Color.Black),
+                                cursorBrush = cursorBrush,
+                                textStyle = TextStyle(color = if (isSystemInDarkTheme()) Color.White else Color.Black),
                                 singleLine = true, modifier = Modifier.weight(1f),
                                 keyboardActions = KeyboardActions(onDone = {
                                     newsScreenViewModel.searchNews(userInput)
@@ -98,13 +103,17 @@ fun MainHost(
                                 }),
                                 decorationBox = { innerField ->
                                     Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
-                                            if(userInput.isEmpty()) {
+                                        Box(
+                                            modifier = Modifier.weight(1f),
+                                            contentAlignment = Alignment.CenterStart
+                                        ) {
+                                            if (userInput.isEmpty()) {
                                                 Text(
                                                     text = "キーワードを入力",
                                                     color = if (isSystemInDarkTheme()) Color.White else Color.Black,
                                                     fontSize = 16.sp
-                                                )}
+                                                )
+                                            }
                                             innerField()
                                         }
                                         if (userInput.isNotEmpty()) {
@@ -113,7 +122,11 @@ fun MainHost(
                                                 navController.popBackStack()
                                                 hideSoftKeyboard(context)
                                             }) {
-                                                Icon(Icons.Default.Close, contentDescription = "", tint = if(isSystemInDarkTheme()) Color.White else Color.Black)
+                                                Icon(
+                                                    Icons.Default.Close,
+                                                    contentDescription = "",
+                                                    tint = if (isSystemInDarkTheme()) Color.White else Color.Black
+                                                )
                                             }
                                         }
                                     }
@@ -124,18 +137,25 @@ fun MainHost(
                     actions = {
                         IconButton(onClick = {
                             println("go to setting screen")
-                            navController.navigate(Screen.SettingScreen.name) {launchSingleTop = true}
+                            navController.navigate(Screen.SettingScreen.name) {
+                                launchSingleTop = true
+                            }
                         }) {
-                            Icon(imageVector = Icons.Default.Settings, contentDescription = "setting")
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = "setting"
+                            )
                         }
                     },
                 )
             }
         }
     ) {
-        Box(modifier = Modifier
-            .fillMaxSize()
-            .padding(it)) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(it)
+        ) {
             NavHost(navController = navController, startDestination = Screen.NewsScreen.name) {
                 // ここで画面遷移を行う
                 composable(Screen.NewsScreen.name) {
@@ -148,7 +168,10 @@ fun MainHost(
                     SettingScreen(mainScreenViewModel = mainScreenViewModel)
                 }
                 composable(Screen.SearchResultScreen.name) {
-                    SearchResultScreen(navController = navController, viewModel = newsScreenViewModel)
+                    SearchResultScreen(
+                        navController = navController,
+                        viewModel = newsScreenViewModel
+                    )
                 }
             }
         }
