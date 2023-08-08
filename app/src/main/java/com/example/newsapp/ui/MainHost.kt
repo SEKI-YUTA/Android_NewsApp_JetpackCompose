@@ -32,7 +32,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,17 +39,19 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.newsapp.R
 import com.example.newsapp.other.hideSoftKeyboard
 import com.example.newsapp.ui.screens.NewsDetailScreen
 import com.example.newsapp.ui.screens.NewsListScreen
 import com.example.newsapp.ui.screens.SearchResultScreen
 import com.example.newsapp.ui.screens.SettingScreen
+import com.example.newsapp.ui.viewmodel.MainScreenViewModel
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 // ここでナビゲーションを行う
 @Composable
-fun MainHost() {
+fun MainHost(
+    mainScreenViewModel: MainScreenViewModel
+) {
     val navController = rememberNavController()
     val newsScreenViewModel = viewModel<NewsScreenViewModel>(factory = NewsScreenViewModel.Factory)
     val context = LocalContext.current
@@ -144,7 +145,7 @@ fun MainHost() {
                     NewsDetailScreen(viewModel = newsScreenViewModel)
                 }
                 composable(Screen.SettingScreen.name) {
-                    SettingScreen()
+                    SettingScreen(mainScreenViewModel = mainScreenViewModel)
                 }
                 composable(Screen.SearchResultScreen.name) {
                     SearchResultScreen(navController = navController, viewModel = newsScreenViewModel)
