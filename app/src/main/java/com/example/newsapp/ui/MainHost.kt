@@ -123,7 +123,7 @@ fun MainHost() {
                     actions = {
                         IconButton(onClick = {
                             println("go to setting screen")
-                            navController.navigate(Screen.SettingScreen.name)
+                            navController.navigate(Screen.SettingScreen.name) {launchSingleTop = true}
                         }) {
                             Icon(imageVector = Icons.Default.Settings, contentDescription = "setting")
                         }
