@@ -1,5 +1,6 @@
 package com.example.newsapp.ui.screens
 
+import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -16,8 +17,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.content.edit
+import com.example.newsapp.R
 import com.example.newsapp.ui.viewmodel.MainScreenViewModel
 
 @Composable
@@ -25,6 +29,7 @@ fun SettingScreen(
     mainScreenViewModel: MainScreenViewModel
 ) {
     val enableDynamicColor = mainScreenViewModel.enableDynamicColor.collectAsState().value
+    val context = LocalContext.current
     Box {
         Column(
             modifier = Modifier
@@ -41,6 +46,10 @@ fun SettingScreen(
                 MyToggleItem(
                     onChecked = {enable ->
                         mainScreenViewModel.setEnableDynamicTheme(enable)
+                        val preferences = context.getSharedPreferences(context.getString(R.string.preference_key), Context.MODE_PRIVATE)
+                        preferences.edit(commit = true) {
+                            putBoolean(context.getString(R.string.enable_dynamicColorState_key), enable)
+                        }
                     },
                     checked = enableDynamicColor
                 )
