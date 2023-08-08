@@ -129,8 +129,9 @@ class NewsScreenViewModel(
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
                 NewsScreenViewModel(
-//                    newsRepository = NewsRepository_Impl()
-                newsRepository = DemoRepository_Impl()
+                    newsRepository = NewsRepository_Impl()
+                    // デモ用のフェイクリポジトリ
+//                newsRepository = DemoRepository_Impl()
                 )
             }
         }

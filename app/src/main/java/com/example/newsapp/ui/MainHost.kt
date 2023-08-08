@@ -40,6 +40,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.newsapp.component.MySearchBar
 import com.example.newsapp.other.hideSoftKeyboard
 import com.example.newsapp.ui.screens.NewsDetailScreen
 import com.example.newsapp.ui.screens.NewsListScreen
@@ -62,77 +63,27 @@ fun MainHost(
                 TopAppBar(
                     title = {
                         //　タイトル
-                        val isSearching = newsScreenViewModel.isSearching.collectAsState()
-                        val cursorBrush = if (isSystemInDarkTheme()) Brush.verticalGradient(
-                            listOf(Color.White, Color.White)
-                        ) else Brush.verticalGradient(listOf(Color.Black, Color.Black))
+                        val isSearching = newsScreenViewModel.isSearching.collectAsState().value
                         var userInput by remember { mutableStateOf("") }
-                        Row(
-                            modifier = Modifier.padding(2.dp),
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Box(
-                                contentAlignment = Alignment.Center
-                            ) {
-                                if (!isSearching.value) {
-                                    IconButton(onClick = {
-//                                        searchAction()
-                                    }) {
-                                        Icon(
-                                            imageVector = Icons.Default.Search,
-                                            tint = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                                            contentDescription = null
-                                        )
-                                    }
-                                } else {
-                                    CircularProgressIndicator(modifier = Modifier.size(24.dp))
-                                }
+                        MySearchBar(
+                            userInput = userInput,
+                            isSearching = isSearching,
+                            searchAction = {
+                            newsScreenViewModel.searchNews(userInput)
+                            navController.navigate(Screen.SearchResultScreen.name) {
+                                launchSingleTop = true
                             }
-                            BasicTextField(
-                                value = userInput,
-                                onValueChange = {
-                                    userInput = it
-                                },
-                                cursorBrush = cursorBrush,
-                                textStyle = TextStyle(color = if (isSystemInDarkTheme()) Color.White else Color.Black),
-                                singleLine = true, modifier = Modifier.weight(1f),
-                                keyboardActions = KeyboardActions(onDone = {
-                                    newsScreenViewModel.searchNews(userInput)
-                                    navController.navigate(Screen.SearchResultScreen.name)
-                                    hideSoftKeyboard(context)
-                                }),
-                                decorationBox = { innerField ->
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        Box(
-                                            modifier = Modifier.weight(1f),
-                                            contentAlignment = Alignment.CenterStart
-                                        ) {
-                                            if (userInput.isEmpty()) {
-                                                Text(
-                                                    text = "キーワードを入力",
-                                                    color = if (isSystemInDarkTheme()) Color.White else Color.Black,
-                                                    fontSize = 16.sp
-                                                )
-                                            }
-                                            innerField()
-                                        }
-                                        if (userInput.isNotEmpty()) {
-                                            IconButton(onClick = {
-                                                userInput = ""
-                                                navController.popBackStack()
-                                                hideSoftKeyboard(context)
-                                            }) {
-                                                Icon(
-                                                    Icons.Default.Close,
-                                                    contentDescription = "",
-                                                    tint = if (isSystemInDarkTheme()) Color.White else Color.Black
-                                                )
-                                            }
-                                        }
-                                    }
-                                },
-                            )
-                        }
+                            hideSoftKeyboard(context)
+                        },
+                            deleteSearchAction =  {
+                                userInput = ""
+                                navController.popBackStack()
+                                hideSoftKeyboard(context)
+                            },
+                            changeUserInputAction = {
+                                userInput = it
+                            }
+                        )
                     },
                     actions = {
                         IconButton(onClick = {
