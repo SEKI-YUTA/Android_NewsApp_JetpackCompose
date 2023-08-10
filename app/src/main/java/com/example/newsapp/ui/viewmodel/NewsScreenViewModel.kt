@@ -9,6 +9,7 @@ import com.example.newsapp.data.DemoRepository_Impl
 import com.example.newsapp.data.NewsRepository
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
+import com.example.newsapp.ui.Screen
 import com.example.newsapp.ui.model.Article
 import com.example.newsapp.ui.model.NewsResponse
 import kotlinx.coroutines.Dispatchers
@@ -55,6 +56,9 @@ class NewsScreenViewModel(
 
     private val _isSearching = MutableStateFlow(false)
     val isSearching = _isSearching.asStateFlow()
+
+    private val _currentScreen = MutableStateFlow(Screen.NewsScreen)
+    val currentScreen = _currentScreen.asStateFlow()
 
     fun searchNews(query: String){
         if(searchResultMap[query] != null) {
@@ -123,6 +127,10 @@ class NewsScreenViewModel(
 
     fun setCurrentArticle(article: Article) {
         _currentArticle.value = article
+    }
+
+    fun setCurrentScreen(screen: Screen) {
+        _currentScreen.value = screen
     }
 
     companion object {

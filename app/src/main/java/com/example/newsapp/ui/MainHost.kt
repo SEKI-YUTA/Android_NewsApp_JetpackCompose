@@ -56,6 +56,7 @@ fun MainHost(
 ) {
     val navController = rememberNavController()
     val newsScreenViewModel = viewModel<NewsScreenViewModel>(factory = NewsScreenViewModel.Factory)
+    val currentScreen = newsScreenViewModel.currentScreen.collectAsState().value
     val context = LocalContext.current
     Scaffold(
         topBar = {
@@ -63,27 +64,29 @@ fun MainHost(
                 TopAppBar(
                     title = {
                         //　タイトル
-                        val isSearching = newsScreenViewModel.isSearching.collectAsState().value
-                        var userInput by remember { mutableStateOf("") }
-                        MySearchBar(
-                            userInput = userInput,
-                            isSearching = isSearching,
-                            searchAction = {
-                            newsScreenViewModel.searchNews(userInput)
-                            navController.navigate(Screen.SearchResultScreen.name) {
-                                launchSingleTop = true
-                            }
-                            hideSoftKeyboard(context)
-                        },
-                            deleteSearchAction =  {
-                                userInput = ""
-                                navController.popBackStack()
-                                hideSoftKeyboard(context)
-                            },
-                            changeUserInputAction = {
-                                userInput = it
-                            }
-                        )
+                        if(currentScreen != Screen.SettingScreen) {
+                            val isSearching = newsScreenViewModel.isSearching.collectAsState().value
+                            var userInput by remember { mutableStateOf("") }
+                            MySearchBar(
+                                userInput = userInput,
+                                isSearching = isSearching,
+                                searchAction = {
+                                    newsScreenViewModel.searchNews(userInput)
+                                    navController.navigate(Screen.SearchResultScreen.name) {
+                                        launchSingleTop = true
+                                    }
+                                    hideSoftKeyboard(context)
+                                },
+                                deleteSearchAction =  {
+                                    userInput = ""
+                                    navController.popBackStack()
+                                    hideSoftKeyboard(context)
+                                },
+                                changeUserInputAction = {
+                                    userInput = it
+                                }
+                            )
+                        }
                     },
                     actions = {
                         IconButton(onClick = {
@@ -110,15 +113,19 @@ fun MainHost(
             NavHost(navController = navController, startDestination = Screen.NewsScreen.name) {
                 // ここで画面遷移を行う
                 composable(Screen.NewsScreen.name) {
+                    newsScreenViewModel.setCurrentScreen(Screen.NewsScreen)
                     NewsListScreen(navController = navController, viewModel = newsScreenViewModel)
                 }
                 composable(Screen.NewsDetailScreen.name) {
+                    newsScreenViewModel.setCurrentScreen(Screen.NewsDetailScreen)
                     NewsDetailScreen(viewModel = newsScreenViewModel)
                 }
                 composable(Screen.SettingScreen.name) {
+                    newsScreenViewModel.setCurrentScreen(Screen.SettingScreen)
                     SettingScreen(mainScreenViewModel = mainScreenViewModel)
                 }
                 composable(Screen.SearchResultScreen.name) {
+                    newsScreenViewModel.setCurrentScreen(Screen.SearchResultScreen)
                     SearchResultScreen(
                         navController = navController,
                         viewModel = newsScreenViewModel
