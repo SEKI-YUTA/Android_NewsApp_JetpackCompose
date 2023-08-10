@@ -10,6 +10,7 @@ import com.example.newsapp.R
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
+// アプリの設定等を保持するViewModel AppViewModelとかに名前を変更した方がいいかも
 class MainScreenViewModel(
     currentEnableDynamicColorState: Boolean
 ) : ViewModel() {
