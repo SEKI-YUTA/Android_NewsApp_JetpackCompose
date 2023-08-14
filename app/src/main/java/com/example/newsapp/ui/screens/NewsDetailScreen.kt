@@ -28,57 +28,68 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.example.newsapp.R
+import com.example.newsapp.component.ErrorMessage
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 @Composable
 fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
-    val context = LocalContext.current
     val currentArticle = viewModel.currentArticle.collectAsState()
-    Box(modifier = Modifier.padding(16.dp)) {
-        Column(
-            horizontalAlignment = Alignment.End,
-            modifier = Modifier
-            .fillMaxSize()
-            .verticalScroll(rememberScrollState())) {
-            Text(
-                currentArticle.value?.title ?: "no title",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp),
-                maxLines = 2,
-                overflow = TextOverflow.Ellipsis,
-                style = TextStyle(fontSize = 20.sp)
+    val isNetworkConnected = viewModel.isNetworkConnected.collectAsState().value
+    val context = LocalContext.current
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)) {
+        if(!isNetworkConnected) {
+            ErrorMessage(
+                message = context.getString(R.string.network_not_connected),
+                showReloadButton = false
             )
-            if(currentArticle.value!!.author != null) {
-                Text("投稿者: ${currentArticle.value!!.author}", modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp))
-            }
-            if(currentArticle.value!!.urlToImage != null) {
-                AsyncImage(model = currentArticle.value!!.urlToImage, contentDescription = "image", modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 8.dp), contentScale = ContentScale.FillWidth)
-            } else {
-                Image(
-                    painter = painterResource(R.drawable.image_placeholder), contentDescription = "",
+        } else {
+            Column(
+                horizontalAlignment = Alignment.End,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())) {
+                Text(
+                    currentArticle.value?.title ?: "no title",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    style = TextStyle(fontSize = 20.sp)
                 )
-            }
-            Text(currentArticle.value?.description ?: "no description", modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp))
-            TextButton(onClick = {
-                // 掲載ページに飛ぶ処理
-                currentArticle.value!!.url?.let {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                    context.startActivity(intent)
+                if(currentArticle.value!!.author != null) {
+                    Text("投稿者: ${currentArticle.value!!.author}", modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp))
                 }
-            }) {
-                Text("掲載ページへ", textDecoration = TextDecoration.Underline)
-            }
+                if(currentArticle.value!!.urlToImage != null) {
+                    AsyncImage(model = currentArticle.value!!.urlToImage, contentDescription = "image", modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 8.dp), contentScale = ContentScale.FillWidth)
+                } else {
+                    Image(
+                        painter = painterResource(R.drawable.image_placeholder), contentDescription = "",
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(bottom = 8.dp),
+                    )
+                }
+                Text(currentArticle.value?.description ?: "no description", modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 8.dp))
+                TextButton(onClick = {
+                    // 掲載ページに飛ぶ処理
+                    currentArticle.value!!.url?.let {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
+                        context.startActivity(intent)
+                    }
+                }) {
+                    Text("掲載ページへ", textDecoration = TextDecoration.Underline)
+                }
 
+            }
         }
     }
 }

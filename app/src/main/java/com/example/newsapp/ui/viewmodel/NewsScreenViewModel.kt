@@ -1,14 +1,18 @@
 package com.example.newsapp.ui.viewmodel
 
+import android.content.Context
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.example.newsapp.data.DemoRepository_Impl
+import com.example.newsapp.NewsApplication
 import com.example.newsapp.data.NewsRepository
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
+import com.example.newsapp.other.AppUtil
 import com.example.newsapp.ui.Screen
 import com.example.newsapp.ui.model.Article
 import com.example.newsapp.ui.model.NewsResponse
@@ -20,6 +24,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class NewsScreenViewModel(
+    private val context: Context,
     private val newsRepository: NewsRepository
 ): ViewModel() {
     val tabsMap = mapOf<String, String>(
@@ -57,12 +62,22 @@ class NewsScreenViewModel(
     private val _isSearching = MutableStateFlow(false)
     val isSearching = _isSearching.asStateFlow()
 
+    private val _isNetworkConnected = MutableStateFlow(true)
+    val isNetworkConnected = _isNetworkConnected.asStateFlow()
+
     private val _currentScreen = MutableStateFlow(Screen.NewsScreen)
     val currentScreen = _currentScreen.asStateFlow()
+
+    init {
+        AppUtil.checkNetworkConnection(context, _isNetworkConnected)
+    }
 
     fun searchNews(query: String){
         if(searchResultMap[query] != null) {
             _currentSearchResult.value = searchResultMap[query]
+            return
+        } else if(searchResultMap[query] == null && _isNetworkConnected.value.not()) {
+            Toast.makeText(context, "ネットワークに接続されていません", Toast.LENGTH_SHORT).show()
             return
         }
         _currentSearchResult.value = null
@@ -81,6 +96,10 @@ class NewsScreenViewModel(
     }
 
     fun getNews(categoryKey: String ,category: String = ""){
+        if(_isNetworkConnected.value.not()) {
+            Toast.makeText(context, "ネットワークに接続されていません", Toast.LENGTH_SHORT).show()
+            return
+        }
         println("getNews called")
         _currentNewsResponse.value = null
         viewModelScope.launch {
@@ -136,8 +155,10 @@ class NewsScreenViewModel(
     companion object {
         val Factory: ViewModelProvider.Factory = viewModelFactory {
             initializer {
+                val context = (this[APPLICATION_KEY] as NewsApplication).container.context
                 NewsScreenViewModel(
-                    newsRepository = NewsRepository_Impl()
+                    newsRepository = NewsRepository_Impl(),
+                    context = context
                     // デモ用のフェイクリポジトリ
 //                newsRepository = DemoRepository_Impl()
                 )

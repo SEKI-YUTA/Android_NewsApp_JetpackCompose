@@ -17,11 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.newsapp.R
 import com.example.newsapp.component.ArticleList
 import com.example.newsapp.component.ErrorMessage
 import com.example.newsapp.component.LoadingPlaceholder
@@ -32,10 +34,12 @@ import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewModel) {
     val entries = viewModel.tabsMap.entries
     val currentNewsResponse = viewModel.currentNewsResponse.collectAsState()
+    val isNetworkConnected = viewModel.isNetworkConnected.collectAsState().value
 //    val tagContentState = rememberPagerState(initialPage = 0)
     val tabContetState = rememberPagerState{entries.size}
     val categoryName = entries.elementAt(tabContetState.currentPage).key
     val categoryPrefix = entries.elementAt(tabContetState.currentPage).value
+    val context = LocalContext.current
     LaunchedEffect(tabContetState.currentPage) {
         if (viewModel.checkResponse(categoryName)) {
             // 取得済みの場合
@@ -63,7 +67,12 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
                         textAlign = TextAlign.Center,
                         style = TextStyle(fontSize = 24.sp)
                     )
-                    if (currentNewsResponse.value == null) {
+                    if(!isNetworkConnected) {
+                        ErrorMessage(
+                            message = context.getString(R.string.network_not_connected),
+                            showReloadButton = false
+                        )
+                    } else if (currentNewsResponse.value == null) {
                         LoadingPlaceholder()
                     } else {
                         ArticleList(

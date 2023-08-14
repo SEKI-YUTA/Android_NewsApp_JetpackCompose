@@ -2,4 +2,6 @@
     <string name="app_name">NewsApp</string>
     <string name="preference_key">NewsApp_PreferenceKey</string>
     <string name="enable_dynamicColorState_key">NewsApp_PreferenceKey</string>
+    <string name="network_not_connected">ネットワークに接続されていません</string>
+    <string name="something_wrong">問題が発生しました</string>
 </resources>

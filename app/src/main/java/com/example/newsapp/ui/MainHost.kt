@@ -41,7 +41,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.newsapp.component.MySearchBar
-import com.example.newsapp.other.hideSoftKeyboard
+import com.example.newsapp.other.AppUtil
 import com.example.newsapp.ui.screens.NewsDetailScreen
 import com.example.newsapp.ui.screens.NewsListScreen
 import com.example.newsapp.ui.screens.SearchResultScreen
@@ -75,12 +75,12 @@ fun MainHost(
                                     navController.navigate(Screen.SearchResultScreen.name) {
                                         launchSingleTop = true
                                     }
-                                    hideSoftKeyboard(context)
+                                    AppUtil.hideSoftKeyboard(context)
                                 },
                                 deleteSearchAction =  {
                                     userInput = ""
                                     navController.popBackStack()
-                                    hideSoftKeyboard(context)
+                                    AppUtil.hideSoftKeyboard(context)
                                 },
                                 changeUserInputAction = {
                                     userInput = it
