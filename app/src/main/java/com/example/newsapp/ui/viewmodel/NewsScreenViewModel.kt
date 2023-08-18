@@ -9,6 +9,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.newsapp.NewsApplication
+import com.example.newsapp.R
 import com.example.newsapp.data.NewsRepository
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
@@ -27,26 +28,34 @@ class NewsScreenViewModel(
     private val context: Context,
     private val newsRepository: NewsRepository
 ): ViewModel() {
+    val topStr = context.getString(R.string.top_news)
+    val businessStr = context.getString(R.string.business_news)
+    val entertainmentStr = context.getString(R.string.entertainment_news)
+    val healthStr = context.getString(R.string.health_news)
+    val scienceStr = context.getString(R.string.science_news)
+    val sportsStr = context.getString(R.string.sports_news)
+    val technologyStr = context.getString(R.string.technology_news)
+
     val tabsMap = mapOf<String, String>(
-        "トップ" to "",
-        "ビジネス" to "business",
-        "芸能" to "entertainment",
-        "健康" to "health",
-        "科学" to "science",
-        "スポーツ" to "sports",
-        "テクノロジー" to "technology"
+        topStr to "",
+        businessStr to "business",
+        entertainmentStr to "entertainment",
+        healthStr to "health",
+        scienceStr to "science",
+        sportsStr to "sports",
+        technologyStr to "technology"
     )
 
     private val searchResultMap = mutableMapOf<String, NewsResponse>()
 
     private val _responseMap = MutableStateFlow(mapOf<String, NewsResponse?>(
-        "トップ" to null,
-        "ビジネス" to null,
-        "芸能" to null,
-        "健康" to null,
-        "科学" to null,
-        "スポーツ" to null,
-        "テクノロジー" to null
+        topStr to null,
+        businessStr to null,
+        entertainmentStr to null,
+        healthStr to null,
+        scienceStr to null,
+        sportsStr to null,
+        technologyStr to null
     ))
     val responseMap = _responseMap.asStateFlow()
 
@@ -77,7 +86,7 @@ class NewsScreenViewModel(
             _currentSearchResult.value = searchResultMap[query]
             return
         } else if(searchResultMap[query] == null && _isNetworkConnected.value.not()) {
-            Toast.makeText(context, "ネットワークに接続されていません", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.network_not_connected), Toast.LENGTH_SHORT).show()
             return
         }
         _currentSearchResult.value = null
@@ -97,7 +106,7 @@ class NewsScreenViewModel(
 
     fun getNews(categoryKey: String ,category: String = ""){
         if(_isNetworkConnected.value.not()) {
-            Toast.makeText(context, "ネットワークに接続されていません", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, context.getString(R.string.network_not_connected), Toast.LENGTH_SHORT).show()
             return
         }
         println("getNews called")

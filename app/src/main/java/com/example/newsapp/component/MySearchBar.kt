@@ -20,10 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.newsapp.R
 import com.example.newsapp.ui.Screen
 
 @Composable
@@ -78,7 +80,7 @@ fun MySearchBar(
                     ) {
                         if (userInput.isEmpty()) {
                             Text(
-                                text = "キーワードを入力",
+                                text = stringResource(id = R.string.searchBar_placeholder),
                                 color = if (isSystemInDarkTheme()) Color.White else Color.Black,
                                 fontSize = 16.sp
                             )

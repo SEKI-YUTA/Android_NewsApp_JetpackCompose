@@ -15,10 +15,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import com.example.newsapp.R
 
 @Composable
 fun ErrorMessage(
-    message: String = "問題が発生しました",
+    message: String = stringResource(id = R.string.something_wrong),
     showReloadButton: Boolean = true,
     reloadAction: () -> Unit = {}
 ) {

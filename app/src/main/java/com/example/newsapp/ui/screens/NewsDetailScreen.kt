@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
@@ -86,7 +87,7 @@ fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
                         context.startActivity(intent)
                     }
                 }) {
-                    Text("掲載ページへ", textDecoration = TextDecoration.Underline)
+                    Text(stringResource(id = R.string.to_original_page), textDecoration = TextDecoration.Underline)
                 }
 
             }

@@ -18,6 +18,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.content.edit
@@ -42,7 +43,7 @@ fun SettingScreen(
                     .padding(8.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text("ダイナミックテーマ", modifier = Modifier.weight(1f))
+                Text(stringResource(id = R.string.dynamicColorState_title), modifier = Modifier.weight(1f))
                 MyToggleItem(
                     onChecked = {enable ->
                         mainScreenViewModel.setEnableDynamicTheme(enable)

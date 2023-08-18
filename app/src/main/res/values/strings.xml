@@ -4,4 +4,18 @@
     <string name="enable_dynamicColorState_key">NewsApp_PreferenceKey</string>
     <string name="network_not_connected">ネットワークに接続されていません</string>
     <string name="something_wrong">問題が発生しました</string>
+    <string name="to_original_page">掲載ページへ</string>
+
+    <string name="dynamicColorState_title">ダイナミックカラー</string>
+    <string name="searchBar_placeholder">キーワードを入力</string>
+    <string name="loading_message">読み込み中...</string>
+
+    <string name="top_news">トップ</string>
+    <string name="business_news">ビジネス</string>
+    <string name="entertainment_news">芸能</string>
+    <string name="health_news">健康</string>
+    <string name="science_news">科学</string>
+    <string name="sports_news">スポーツ</string>
+    <string name="technology_news">テクノロジー</string>
+
 </resources>
