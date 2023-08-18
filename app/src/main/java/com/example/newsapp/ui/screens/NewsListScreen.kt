@@ -33,7 +33,7 @@ import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 @Composable
 fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewModel) {
     val entries = viewModel.tabsMap.entries
-    val currentNewsResponse = viewModel.currentNewsResponse.collectAsState()
+    val currentNewsResponse = viewModel.currentNewsResponse.collectAsState().value
     val isNetworkConnected = viewModel.isNetworkConnected.collectAsState().value
 //    val tagContentState = rememberPagerState(initialPage = 0)
     val tabContetState = rememberPagerState{entries.size}
@@ -72,11 +72,11 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
                             message = context.getString(R.string.network_not_connected),
                             showReloadButton = false
                         )
-                    } else if (currentNewsResponse.value == null) {
+                    } else if (currentNewsResponse == null) {
                         LoadingPlaceholder()
                     } else {
                         ArticleList(
-                            articleList = currentNewsResponse.value?.articles,
+                            articleList = currentNewsResponse.articles,
                             viewModel = viewModel,
                             navController = navController
                         )
@@ -85,7 +85,7 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
             }
         }
     }
-    if(currentNewsResponse.value?.succeed == false) {
+    if(currentNewsResponse?.succeed == false) {
         ErrorMessage(reloadAction = {println("reloadAction")})
     }
 }

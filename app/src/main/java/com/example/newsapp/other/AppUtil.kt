@@ -16,20 +16,6 @@ class AppUtil {
 
 
         fun checkNetworkConnection(context: Context, status: MutableStateFlow<Boolean>) {
-//            if(Build.VERSION.SDK_INT >= 29) {
-//                // api29以降の場合
-//                return false
-//            } else {
-//                // api29以前の場合
-//                val connectionManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-//                connectionManager.addDefaultNetworkActiveListener {
-//                    // ネットワーク接続状態が変化した時に呼ばれる
-//                    println("network status changed")
-//                }
-//                connectionManager.all
-//                val activeNetwork = connectionManager.activeNetworkInfo
-//                return activeNetwork != null && activeNetwork.isConnected
-//            }
             val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
             val activeNetwork = cm.activeNetworkInfo
             cm.registerDefaultNetworkCallback(object : ConnectivityManager.NetworkCallback() {

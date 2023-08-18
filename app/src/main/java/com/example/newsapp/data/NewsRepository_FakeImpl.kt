@@ -3,7 +3,8 @@ package com.example.newsapp.data
 import com.example.newsapp.ui.model.NewsResponse
 import kotlinx.coroutines.delay
 
-class DemoRepository_Impl: NewsRepository {
+// ニュースの情報をデモ用のデータから引っ張ってくる
+class NewsRepository_FakeImpl: NewsRepository {
     override suspend fun getTopNews(country: String, sortBy: String, apiKey: String): NewsResponse {
         delay(100)
         return DemoData.demoResponse

@@ -37,9 +37,9 @@ class NewsScreenViewModel(
         "テクノロジー" to "technology"
     )
 
-    val searchResultMap = mutableMapOf<String, NewsResponse>()
+    private val searchResultMap = mutableMapOf<String, NewsResponse>()
 
-    val _responseMap = MutableStateFlow(mapOf<String, NewsResponse?>(
+    private val _responseMap = MutableStateFlow(mapOf<String, NewsResponse?>(
         "トップ" to null,
         "ビジネス" to null,
         "芸能" to null,

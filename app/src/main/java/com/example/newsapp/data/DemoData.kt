@@ -4,6 +4,7 @@ import com.example.newsapp.ui.model.Article
 import com.example.newsapp.ui.model.NewsResponse
 import com.example.newsapp.ui.model.Source
 
+// APIに呼び出し回数の制限があるので、頻繁に再起動等をする際にこのデータを使用する
 class DemoData() {
     companion object {
         val demoResponse = NewsResponse(

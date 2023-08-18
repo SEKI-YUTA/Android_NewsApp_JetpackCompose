@@ -24,7 +24,7 @@ import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 @Composable
 fun SearchResultScreen(navController: NavHostController, viewModel: NewsScreenViewModel) {
-    val isSearching = viewModel.isSearching.collectAsState()
+    val isSearching = viewModel.isSearching.collectAsState().value
     val isNetworkConnected = viewModel.isNetworkConnected.collectAsState().value
     val currentSearchResult = viewModel.currentSearchResult.collectAsState()
     val context = LocalContext.current
@@ -45,7 +45,7 @@ fun SearchResultScreen(navController: NavHostController, viewModel: NewsScreenVi
                     modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp, end = 8.dp),
                     style = TextStyle(fontSize = 14.sp, textAlign = TextAlign.End))
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                    if(isSearching.value) {
+                    if(isSearching) {
                         LoadingPlaceholder()
                     } else {
                         ArticleList(

@@ -33,7 +33,7 @@ import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 @Composable
 fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
-    val currentArticle = viewModel.currentArticle.collectAsState()
+    val currentArticle = viewModel.currentArticle.collectAsState().value
     val isNetworkConnected = viewModel.isNetworkConnected.collectAsState().value
     val context = LocalContext.current
     Box(modifier = Modifier
@@ -51,7 +51,7 @@ fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())) {
                 Text(
-                    currentArticle.value?.title ?: "no title",
+                    currentArticle?.title ?: "no title",
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
@@ -59,13 +59,13 @@ fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
                     overflow = TextOverflow.Ellipsis,
                     style = TextStyle(fontSize = 20.sp)
                 )
-                if(currentArticle.value!!.author != null) {
-                    Text("投稿者: ${currentArticle.value!!.author}", modifier = Modifier
+                if(currentArticle?.author != null) {
+                    Text("投稿者: ${currentArticle.author}", modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp))
                 }
-                if(currentArticle.value!!.urlToImage != null) {
-                    AsyncImage(model = currentArticle.value!!.urlToImage, contentDescription = "image", modifier = Modifier
+                if(currentArticle?.urlToImage != null) {
+                    AsyncImage(model = currentArticle.urlToImage, contentDescription = "image", modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp), contentScale = ContentScale.FillWidth)
                 } else {
@@ -76,12 +76,12 @@ fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
                             .padding(bottom = 8.dp),
                     )
                 }
-                Text(currentArticle.value?.description ?: "no description", modifier = Modifier
+                Text(currentArticle?.description ?: "no description", modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 8.dp))
                 TextButton(onClick = {
                     // 掲載ページに飛ぶ処理
-                    currentArticle.value!!.url?.let {
+                    currentArticle?.url?.let {
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
                         context.startActivity(intent)
                     }

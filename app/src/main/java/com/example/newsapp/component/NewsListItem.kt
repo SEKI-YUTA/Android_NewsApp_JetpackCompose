@@ -31,12 +31,8 @@ fun NewsListItem(article: Article, modifier: Modifier = Modifier, onTapAction: (
     ) {
         ListItem(
             modifier = modifier.clickable {
-                // 詳細ページへ遷移する処理にする予定
+                // 詳細画面へ遷移する処理が渡される
                 onTapAction()
-                //            article.url?.let {
-                //                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(it))
-                //                context.startActivity(intent)
-                //            }
             }.tooltipTrigger(),
             leadingContent = {
                 if (article.urlToImage == null) {
