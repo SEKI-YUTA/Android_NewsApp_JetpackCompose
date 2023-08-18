@@ -113,11 +113,6 @@ class NewsScreenViewModel(
         _currentNewsResponse.value = null
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-//                val topNews = NewsAPI.apiService.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY)
-//                topNews.let {
-//                    println("connection succeed status: ${it.status}")
-//                    println("count: ${it.totalResults}")
-//                }
                 if(category == "") {
                     // カテゴリ指定なしでニュースを取得する場合
                     newsRepository.getTopNews("jp", apiKey = SecretInfo.NEWS_API_KEY).let {
