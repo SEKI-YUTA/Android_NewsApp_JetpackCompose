@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace 'com.example.newsapp'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.example.newsapp"
         minSdk 26
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -80,6 +80,10 @@ dependencies {
 
     // ネットの画像を表示させるために必要
     implementation "io.coil-kt:coil-compose:2.4.0"
+
+    implementation 'androidx.compose.material:material:1.6.0-alpha05'
+
+
 
 
     testImplementation 'junit:junit:4.13.2'

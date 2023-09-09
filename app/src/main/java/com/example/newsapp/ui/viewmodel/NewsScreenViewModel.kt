@@ -71,6 +71,9 @@ class NewsScreenViewModel(
     private val _isSearching = MutableStateFlow(false)
     val isSearching = _isSearching.asStateFlow()
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing = _isRefreshing.asStateFlow()
+
     private val _isNetworkConnected = MutableStateFlow(true)
     val isNetworkConnected = _isNetworkConnected.asStateFlow()
 
@@ -104,10 +107,13 @@ class NewsScreenViewModel(
         }
     }
 
-    fun getNews(categoryKey: String ,category: String = ""){
+    fun getNews(categoryKey: String ,category: String = "", refreshOrder: Boolean = false){
         if(_isNetworkConnected.value.not()) {
             Toast.makeText(context, context.getString(R.string.network_not_connected), Toast.LENGTH_SHORT).show()
             return
+        }
+        if(refreshOrder) {
+            _isRefreshing.value = true
         }
         println("getNews called")
         _currentNewsResponse.value = null
@@ -129,6 +135,9 @@ class NewsScreenViewModel(
                         _currentNewsResponse.value = it
                         addResponse(categoryKey, it)
                     }
+                }
+                if(refreshOrder) {
+                    _isRefreshing.value = false
                 }
             }
         }
