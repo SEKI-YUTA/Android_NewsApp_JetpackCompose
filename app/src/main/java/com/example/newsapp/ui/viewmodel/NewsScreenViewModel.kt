@@ -11,6 +11,7 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
 import com.example.newsapp.data.NewsRepository
+import com.example.newsapp.data.NewsRepository_FakeImpl
 import com.example.newsapp.data.NewsRepository_Impl
 import com.example.newsapp.data.SecretInfo
 import com.example.newsapp.other.AppUtil
@@ -171,9 +172,9 @@ class NewsScreenViewModel(
                 val context = (this[APPLICATION_KEY] as NewsApplication).container.context
                 NewsScreenViewModel(
                     newsRepository = NewsRepository_Impl(),
-                    context = context
+                    context = context,
                     // デモ用のフェイクリポジトリ
-//                newsRepository = DemoRepository_Impl()
+//                newsRepository = NewsRepository_FakeImpl()
                 )
             }
         }
