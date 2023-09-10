@@ -76,14 +76,6 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
             println("idx: $idx")
             Box(modifier = Modifier.fillMaxSize()) {
                 Column {
-                    Text(
-                        "$categoryName",
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 16.dp, bottom = 4.dp),
-                        textAlign = TextAlign.Center,
-                        style = TextStyle(fontSize = 24.sp)
-                    )
                     if(!isNetworkConnected) {
                         ErrorMessage(
                             message = context.getString(R.string.network_not_connected),
@@ -95,7 +87,8 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
                         NewsList(
                             articleList = currentNewsResponse.articles,
                             viewModel = viewModel,
-                            navController = navController
+                            navController = navController,
+                            categoryName = categoryName
                         )
                     }
                 }

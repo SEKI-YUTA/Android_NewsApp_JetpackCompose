@@ -36,11 +36,6 @@ fun SearchResultScreen(navController: NavHostController, viewModel: NewsScreenVi
             )
         } else {
             Column(modifier = Modifier.fillMaxSize()) {
-                Text(
-                    "検索結果",
-                    modifier = Modifier.fillMaxWidth().padding(bottom = 4.dp, top = 8.dp),
-                    style = TextStyle(fontSize = 20.sp, textAlign = TextAlign.Center)
-                )
                 Text("該当数：${currentSearchResult.value?.totalResults ?: 0}件",
                     modifier = Modifier.fillMaxWidth().padding(bottom = 8.dp, end = 8.dp),
                     style = TextStyle(fontSize = 14.sp, textAlign = TextAlign.End))
@@ -51,7 +46,8 @@ fun SearchResultScreen(navController: NavHostController, viewModel: NewsScreenVi
                         NewsList(
                             articleList = currentSearchResult.value?.articles,
                             viewModel = viewModel,
-                            navController = navController
+                            navController = navController,
+                            categoryName = "検索結果"
                         )
                     }
                 }
