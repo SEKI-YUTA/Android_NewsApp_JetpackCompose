@@ -63,7 +63,7 @@ fun MainHost(
             Surface(shadowElevation = 4.dp) {
                 TopAppBar(
                     title = {
-                        //　タイトル
+                        // 設定画面では検索バー（アップバー）を表示しない
                         if(currentScreen != Screen.SettingScreen) {
                             val isSearching = newsScreenViewModel.isSearching.collectAsState().value
                             var userInput by remember { mutableStateOf("") }
@@ -111,7 +111,7 @@ fun MainHost(
                 .padding(it)
         ) {
             NavHost(navController = navController, startDestination = Screen.NewsScreen.name) {
-                // ここで画面遷移を行う
+                // ここで画面遷移を設定している
                 composable(Screen.NewsScreen.name) {
                     newsScreenViewModel.setCurrentScreen(Screen.NewsScreen)
                     NewsListScreen(navController = navController, viewModel = newsScreenViewModel)
