@@ -11,7 +11,7 @@ import com.example.newsapp.ui.model.Article
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 @Composable
-fun ArticleList(articleList: List<Article>?, viewModel: NewsScreenViewModel, navController: NavHostController) {
+fun NewsList(articleList: List<Article>?, viewModel: NewsScreenViewModel, navController: NavHostController) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(articleList ?: listOf()) { article ->
             NewsListItem(article = article, onTapAction = {
