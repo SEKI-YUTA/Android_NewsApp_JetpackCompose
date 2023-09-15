@@ -1,10 +1,14 @@
 <resources>
-    <string name="app_name">NewsApp</string>
+    <string name="app_name">ニュースアプリ</string>
     <string name="preference_key">NewsApp_PreferenceKey</string>
     <string name="enable_dynamicColorState_key">NewsApp_PreferenceKey</string>
     <string name="network_not_connected">ネットワークに接続されていません</string>
     <string name="something_wrong">問題が発生しました</string>
     <string name="to_original_page">掲載ページへ</string>
+    <string name="no_title">タイトルなし</string>
+    <string name="no_description">詳細なし</string>
+    <string name="publisher">投稿者</string>
+    <string name="search_result">検索結果</string>
 
     <string name="dynamicColorState_title">ダイナミックカラー</string>
     <string name="searchBar_placeholder">キーワードを入力</string>

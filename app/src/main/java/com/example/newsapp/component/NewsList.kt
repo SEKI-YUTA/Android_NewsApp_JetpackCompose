@@ -32,6 +32,7 @@ fun NewsList(
     articleList: List<Article>?,
     viewModel: NewsScreenViewModel,
     navController: NavHostController,
+    // titleTextとかにした方がいいかな
     categoryName: String
 ) {
     val lazyListState = rememberLazyListState()

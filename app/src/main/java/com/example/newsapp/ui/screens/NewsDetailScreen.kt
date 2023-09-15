@@ -52,7 +52,7 @@ fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
                     .fillMaxSize()
                     .verticalScroll(rememberScrollState())) {
                 Text(
-                    currentArticle?.title ?: "no title",
+                    currentArticle?.title ?: context.getString(R.string.no_title),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp),
@@ -61,7 +61,7 @@ fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
                     style = TextStyle(fontSize = 20.sp)
                 )
                 if(currentArticle?.author != null) {
-                    Text("投稿者: ${currentArticle.author}", modifier = Modifier
+                    Text("${context.getString(R.string.publisher)}: ${currentArticle.author}", modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 8.dp))
                 }
@@ -77,7 +77,7 @@ fun NewsDetailScreen(viewModel: NewsScreenViewModel) {
                             .padding(bottom = 8.dp),
                     )
                 }
-                Text(currentArticle?.description ?: "no description", modifier = Modifier
+                Text(currentArticle?.description ?: context.getString(R.string.no_description), modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 8.dp))
                 TextButton(onClick = {

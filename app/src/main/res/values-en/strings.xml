@@ -5,6 +5,10 @@
     <string name="network_not_connected">network disconnected</string>
     <string name="something_wrong">something wrong</string>
     <string name="to_original_page">publication page</string>
+    <string name="no_title">no title</string>
+    <string name="no_description">no description</string>
+    <string name="publisher">publisher</string>
+    <string name="search_result">search result</string>
 
     <string name="dynamicColorState_title">dynamic color</string>
     <string name="searchBar_placeholder">enter keyword</string>
