@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">NewsApp</string>
+    <string name="preference_key">NewsApp_PreferenceKey</string>
+    <string name="enable_dynamicColorState_key">NewsApp_PreferenceKey</string>
+    <string name="network_not_connected">network disconnected</string>
+    <string name="something_wrong">something wrong</string>
+    <string name="to_original_page">publication page</string>
+
+    <string name="dynamicColorState_title">dynamic color</string>
+    <string name="searchBar_placeholder">enter keyword</string>
+    <string name="loading_message">now loading...</string>
+
+    <string name="top_news">top</string>
+    <string name="business_news">business</string>
+    <string name="entertainment_news">entertainment</string>
+    <string name="health_news">health</string>
+    <string name="science_news">scientce</string>
+    <string name="sports_news">sports</string>
+    <string name="technology_news">technology</string>
+
+</resources>
