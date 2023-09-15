@@ -47,7 +47,7 @@ fun SearchResultScreen(navController: NavHostController, viewModel: NewsScreenVi
                             articleList = currentSearchResult.value?.articles,
                             viewModel = viewModel,
                             navController = navController,
-                            categoryName = context.getString(R.string.search_result)
+                            headingText = context.getString(R.string.search_result)
                         )
                     }
                 }

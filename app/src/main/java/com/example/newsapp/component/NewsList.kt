@@ -32,8 +32,7 @@ fun NewsList(
     articleList: List<Article>?,
     viewModel: NewsScreenViewModel,
     navController: NavHostController,
-    // titleTextとかにした方がいいかな
-    categoryName: String
+    headingText: String
 ) {
     val lazyListState = rememberLazyListState()
     // 多分この値でヘッダーを下方向へ動かす事によってゆっくり動くようにしてる
@@ -53,7 +52,7 @@ fun NewsList(
     ) {
         item {
             Text(
-                "$categoryName",
+                "$headingText",
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surface)
                     .fillMaxWidth()

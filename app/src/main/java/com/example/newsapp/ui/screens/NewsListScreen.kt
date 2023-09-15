@@ -94,7 +94,7 @@ fun NewsListScreen(navController: NavHostController, viewModel: NewsScreenViewMo
                                 articleList = currentNewsResponse.articles,
                                 viewModel = viewModel,
                                 navController = navController,
-                                categoryName = categoryName
+                                headingText = categoryName
                             )
                         }
                     }
