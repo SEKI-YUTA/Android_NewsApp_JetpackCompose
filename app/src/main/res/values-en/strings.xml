@@ -12,14 +12,14 @@
 
     <string name="dynamicColorState_title">dynamic color</string>
     <string name="searchBar_placeholder">enter keyword</string>
-    <string name="loading_message">now loading...</string>
+    <string name="loading_message">now loading…</string>
 
-    <string name="top_news">top</string>
-    <string name="business_news">business</string>
-    <string name="entertainment_news">entertainment</string>
-    <string name="health_news">health</string>
-    <string name="science_news">scientce</string>
-    <string name="sports_news">sports</string>
-    <string name="technology_news">technology</string>
+    <string name="top_news">Top</string>
+    <string name="business_news">Business</string>
+    <string name="entertainment_news">Entertainment</string>
+    <string name="health_news">Health</string>
+    <string name="science_news">Science</string>
+    <string name="sports_news">Sports</string>
+    <string name="technology_news">Technology</string>
 
 </resources>
