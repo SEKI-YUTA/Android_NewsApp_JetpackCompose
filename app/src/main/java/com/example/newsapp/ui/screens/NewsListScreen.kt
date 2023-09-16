@@ -25,10 +25,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import com.example.newsapp.R
-import com.example.newsapp.component.CategorySelector
-import com.example.newsapp.component.NewsList
-import com.example.newsapp.component.ErrorMessage
-import com.example.newsapp.component.LoadingPlaceholder
+import com.example.newsapp.ui.component.CategorySelector
+import com.example.newsapp.ui.component.NewsList
+import com.example.newsapp.ui.component.ErrorMessage
+import com.example.newsapp.ui.component.LoadingPlaceholder
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 import kotlinx.coroutines.launch
 

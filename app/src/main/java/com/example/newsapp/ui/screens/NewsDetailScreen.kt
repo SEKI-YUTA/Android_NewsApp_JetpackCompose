@@ -35,8 +35,8 @@ import androidx.compose.runtime.setValue
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import com.example.newsapp.R
-import com.example.newsapp.component.ErrorMessage
-import com.example.newsapp.component.LoadingPlaceholder
+import com.example.newsapp.ui.component.ErrorMessage
+import com.example.newsapp.ui.component.LoadingPlaceholder
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 @Composable

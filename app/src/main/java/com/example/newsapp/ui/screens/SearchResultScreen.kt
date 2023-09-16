@@ -17,9 +17,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.newsapp.R
-import com.example.newsapp.component.NewsList
-import com.example.newsapp.component.ErrorMessage
-import com.example.newsapp.component.LoadingPlaceholder
+import com.example.newsapp.ui.component.NewsList
+import com.example.newsapp.ui.component.ErrorMessage
+import com.example.newsapp.ui.component.LoadingPlaceholder
 import com.example.newsapp.ui.viewmodel.NewsScreenViewModel
 
 @Composable

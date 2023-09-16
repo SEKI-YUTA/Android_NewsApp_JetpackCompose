@@ -40,7 +40,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.newsapp.component.MySearchBar
+import com.example.newsapp.ui.component.MySearchBar
 import com.example.newsapp.other.AppUtil
 import com.example.newsapp.ui.screens.NewsDetailScreen
 import com.example.newsapp.ui.screens.NewsListScreen
