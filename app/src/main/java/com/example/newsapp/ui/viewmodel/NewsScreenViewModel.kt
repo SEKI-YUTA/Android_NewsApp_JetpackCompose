@@ -171,10 +171,10 @@ class NewsScreenViewModel(
             initializer {
                 val context = (this[APPLICATION_KEY] as NewsApplication).container.context
                 NewsScreenViewModel(
-//                    newsRepository = NewsRepository_Impl(),
+                    newsRepository = NewsRepository_Impl(),
                     context = context,
                     // デモ用のフェイクリポジトリ
-                newsRepository = NewsRepository_FakeImpl()
+//                newsRepository = NewsRepository_FakeImpl()
                 )
             }
         }
